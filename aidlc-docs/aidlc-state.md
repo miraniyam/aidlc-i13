@@ -27,8 +27,13 @@
 - [x] Units Generation (COMPLETED - 2026-02-09T15:05:00+09:00)
 
 ### CONSTRUCTION PHASE
-- [ ] Per-Unit Design & Code Generation (PENDING)
-- [ ] Build and Test (PENDING)
+- [ ] Per-Unit Design & Code Generation (IN PROGRESS)
+  - [x] Unit 4: SuperAdmin Frontend (COMPLETED - 2026-02-09T16:16:43+09:00)
+  - [ ] Unit 1: Backend API & Database (PENDING)
+  - [ ] Unit 2: Customer Frontend (PENDING)
+  - [ ] Unit 3: Admin Frontend (PENDING)
+  - [ ] Unit 5: Infrastructure (PENDING)
+- [x] Build and Test - Unit 4 (COMPLETED - 2026-02-09T16:18:30+09:00)
 
 ### OPERATIONS PHASE
 - [ ] Operations (PLACEHOLDER)
