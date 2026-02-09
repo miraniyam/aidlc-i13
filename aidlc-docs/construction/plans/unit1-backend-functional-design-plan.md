@@ -78,13 +78,13 @@ A) 단일 매장 고정 (Store 레코드 1개, 하드코딩된 UUID)
 B) 다중 매장 지원 (Store 레코드 N개, 매장별 데이터 격리)
 C) Store 엔티티 제거 (매장 개념 없이 전역 데이터)
 
-[Answer]: 
+[Answer]: B
 
 **Follow-up (if B):** 매장별 데이터 격리 방식은?
 - 모든 테이블에 store_id FK 추가?
 - Row-Level Security 사용?
 
-[Answer]: 
+[Answer]: store_id 사용
 
 ---
 
@@ -96,13 +96,13 @@ A) Application-level lock (SELECT FOR UPDATE)
 B) Database-level unique constraint (table_id + is_active)
 C) Optimistic locking (version 컬럼)
 
-[Answer]: 
+[Answer]: a
 
 **Follow-up:** 세션 생성 실패 시 기존 세션 처리 방식은?
 - 기존 세션 자동 종료 후 신규 생성?
 - 에러 반환 (관리자가 수동 종료)?
 
-[Answer]: 
+[Answer]: 자동 종료
 
 ---
 
@@ -114,11 +114,11 @@ A) 세션 종료 시 일괄 이동 (CompleteTableSessionService)
 B) 주문 상태가 'completed' 되면 즉시 이동
 C) 배치 작업으로 주기적 이동 (예: 매일 자정)
 
-[Answer]: 
+[Answer]: A
 
 **Follow-up:** OrderHistory 스키마는 Order와 동일한가요, 아니면 요약 데이터만 저장하나요?
 
-[Answer]: 
+[Answer]: 동일
 
 ---
 
@@ -130,13 +130,13 @@ A) 상대 경로 저장 (예: `/uploads/menus/{uuid}.jpg`), FastAPI static files
 B) 절대 경로 저장 (예: `/var/app/uploads/menus/{uuid}.jpg`)
 C) S3 URL 저장 (향후 확장 고려)
 
-[Answer]: 
+[Answer]: A
 
 **Follow-up:** 이미지 파일명 생성 규칙은?
 - UUID + 원본 확장자?
 - Timestamp + UUID?
 
-[Answer]: 
+[Answer]: UUID, 확장자
 
 ---
 
@@ -153,11 +153,11 @@ C) S3 URL 저장 (향후 확장 고려)
 **Questions:**
 - 세션 재사용 시 JWT 토큰은 새로 발급하나요, 기존 토큰 재사용하나요?
 
-[Answer]: 
+[Answer]: 새로 발급
 
 - 세션 생성 시 started_at은 현재 시각인가요, 아니면 첫 주문 시각인가요?
 
-[Answer]: 
+[Answer]: 현재 시각
 
 ---
 
@@ -175,11 +175,15 @@ C) S3 URL 저장 (향후 확장 고려)
   - 내부: 트랜잭션 실패 시 이벤트도 롤백
   - 외부: 트랜잭션 성공 후 이벤트 발행 (eventual consistency)
 
-[Answer]: 
+[Answer]: EventBus.publish()는 트랜잭션 커밋 후 외부에서 실행합니다.
+DB 커밋 성공 후에만 이벤트를 발행하여 데이터 일관성을 보장합니다.
+
 
 - 주문 생성 시 재고 확인이 필요한가요? (Menu.is_available 체크)
 
 [Answer]: 
+주문 생성 시 Menu.is_available=True 체크만 수행합니다.
+재고 수량 관리는 하지 않습니다 (품절 여부만 확인).
 
 ---
 
@@ -442,20 +446,22 @@ C) No pagination (전체 데이터 반환)
 - [x] Clarification questions generated
 
 ### Execution
-- [ ] User answers collected
-- [ ] Ambiguities resolved
-- [ ] Domain entities documented
-- [ ] Business logic model documented
-- [ ] Business rules documented
+- [x] User answers collected
+- [x] Ambiguities resolved
+- [x] Domain entities documented
+- [x] Business logic model documented
+- [x] Business rules documented
 
 ### Post-Execution
-- [ ] Artifacts validated
-- [ ] User approval received
-- [ ] Progress logged in audit.md
-- [ ] aidlc-state.md updated
+- [x] Artifacts validated
+- [x] User approval received
+- [x] Progress logged in audit.md
+- [x] aidlc-state.md updated
 
 ---
 
-**Plan Status**: Awaiting User Answers
+**Plan Status**: Complete - Approved by User (2026-02-09T15:46:46+09:00)
 
 **Next Step**: User completes all [Answer]: tags, then AI proceeds to artifact generation.
+
+Critical: If [Answer] item is empty, do in the way you think proper

@@ -1,64 +1,109 @@
-# AIDLC Workshop
+# TableOrder Service
 
-AIDLC (AI-Driven Development Life Cycle) 워크샵을 위한 사전 구성 프로젝트입니다.
+테이블오더 서비스 - 매장 내 테이블 주문 시스템
 
 ## 개요
 
-이 프로젝트는 AIDLC 워크샵 참가자들이 별도의 설정 없이 바로 실습을 시작할 수 있도록 필요한 파일과 구조를 미리 세팅해둔 템플릿입니다.
+고객이 테이블에서 QR 코드를 스캔하여 메뉴를 조회하고 주문할 수 있는 시스템입니다. 관리자는 실시간으로 주문을 확인하고 상태를 관리할 수 있습니다.
 
-## 시작하기
+## 기술 스택
 
-1. 이 프로젝트를 클론하거나 다운로드합니다
-2. 프로젝트 디렉토리에서 Kiro IDE 또는 Kiro CLI를 실행합니다
-3. 추가 설정 없이 AIDLC 워크플로우를 바로 시작할 수 있습니다
+- **Backend**: Python 3.11+, FastAPI
+- **Database**: PostgreSQL 15
+- **ORM**: SQLAlchemy 2.0 (Async)
+- **Authentication**: JWT
+- **Real-time**: Server-Sent Events (SSE)
 
-### 환경별 Agent 설정
+## 설치 및 실행
 
-이 프로젝트는 실행 환경에 따라 다른 Agent 설정을 사용합니다:
+### 1. 의존성 설치
 
-- **Kiro IDE**: `AGENTS.md`를 이용하여 기본 Agent에 가이드 설정
-  - `.kiro/steering/` 디렉토리의 워크플로우 규칙 적용
-  - 한국어 응답 (기술 용어 제외)
-  - 구조화된 워크플로우 가이드
-  - 모든 단계에서 사용자 승인 필수
+```bash
+pip install -r requirements.txt
+```
 
-- **Kiro CLI**: `.kiro/agents/aidlc-worker.json`의 agent 설정을 통해 Custom Agent 생성
-  - 한국어 응답 (기술 용어 제외)
-  - 구조화된 워크플로우 가이드
-  - 모든 단계에서 사용자 승인 필수
+### 2. 환경 변수 설정
+
+`.env` 파일 생성:
+
+```bash
+cp .env.example .env
+```
+
+`.env` 파일 수정:
+
+```
+DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/tableorder
+JWT_SECRET=your-secret-key-here
+```
+
+### 3. 데이터베이스 마이그레이션
+
+```bash
+alembic upgrade head
+```
+
+### 4. 애플리케이션 실행
+
+```bash
+python -m src.main
+```
+
+또는:
+
+```bash
+uvicorn src.main:app --reload
+```
+
+API는 `http://localhost:8000`에서 실행됩니다.
+
+## API 문서
+
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
+자세한 API 문서는 `docs/API.md`를 참조하세요.
+
+## 테스트
+
+```bash
+pytest
+```
 
 ## 프로젝트 구조
 
 ```
-aidlc-workshop/
-├── .kiro/                          # Kiro 설정
-│   ├── agents/                     # Custom Agent 설정 (CLI용)
-│   │   └── aidlc-worker.json
-│   ├── steering/                   # AIDLC 워크플로우 규칙
-│   │   └── aws-aidlc-rules/
-│   └── aws-aidlc-rule-details/     # 상세 규칙 문서
-├── AGENTS.md                       # Agent 가이드 (IDE용)
-└── README.md                       # 프로젝트 설명
+src/
+├── models/          # SQLAlchemy ORM 모델
+├── services/        # 비즈니스 로직
+├── api/             # FastAPI 라우터
+│   ├── customer/    # 고객 API
+│   ├── admin/       # 관리자 API
+│   └── superadmin/  # 슈퍼 관리자 API
+├── infrastructure/  # 이벤트 버스, SSE
+├── core/            # 설정, 데이터베이스, 보안
+└── main.py          # 애플리케이션 진입점
+
+tests/               # 테스트
+migrations/          # Alembic 마이그레이션
+uploads/menus/       # 메뉴 이미지
 ```
 
-## 사전 구성 내용
+## 주요 기능
 
-- **AIDLC 워크플로우 규칙**: Inception, Construction, Operations 단계별 가이드
-- **Agent 설정**: aidlc-worker agent
-- **한국어 지원**: 기술 용어를 제외한 모든 응답이 한국어로 제공됩니다
+- 고객 테이블 로그인
+- 메뉴 조회 및 주문
+- 실시간 주문 알림 (SSE)
+- 주문 상태 관리
+- 메뉴 관리
+- 테이블 세션 관리
+- 주문 히스토리 조회
+- 관리자 계정 관리
 
-## 워크플로우
+## 개발 가이드
 
-AIDLC는 다음 단계로 구성됩니다:
-
-1. **Inception Phase**: 요구사항 분석, 설계, 계획 수립
-2. **Construction Phase**: 상세 설계, 코드 생성, 빌드 및 테스트
-3. **Operations Phase**: 배포 및 운영 (향후 확장 예정)
-
-## 요구사항
-
-- Kiro IDE 또는 Kiro CLI 설치
+자세한 개발 가이드는 `docs/DEVELOPMENT.md`를 참조하세요.
 
 ## 라이선스
 
-워크샵 교육용 프로젝트입니다.
+MIT
