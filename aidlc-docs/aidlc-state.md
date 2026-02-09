@@ -3,8 +3,8 @@
 ## Project Information
 - **Project Type**: Greenfield
 - **Start Date**: 2026-02-09T13:12:50+09:00
-- **Current Stage**: INCEPTION - Complete
-- **Next Stage**: CONSTRUCTION - Per-Unit Design & Code Generation
+- **Current Stage**: CONSTRUCTION - Unit 5 Complete
+- **Next Stage**: CONSTRUCTION - Build and Test (or continue with other units)
 
 ## Workspace State
 - **Existing Code**: No
@@ -27,8 +27,23 @@
 - [x] Units Generation (COMPLETED - 2026-02-09T15:05:00+09:00)
 
 ### CONSTRUCTION PHASE
-- [ ] Per-Unit Design & Code Generation (PENDING)
-- [ ] Build and Test (PENDING)
+
+#### Unit 5: Infrastructure (Terraform)
+- [x] Infrastructure Design (COMPLETED - 2026-02-09T15:40:00+09:00)
+- [x] Code Generation (COMPLETED - 2026-02-09T16:05:00+09:00)
+  - [x] 7 Terraform modules created
+  - [x] Production environment configured
+  - [x] Deployment scripts generated
+  - [x] Documentation complete
+
+#### Other Units
+- [ ] Unit 1: Backend API & Database (PENDING)
+- [ ] Unit 2: Customer Frontend (PENDING)
+- [ ] Unit 3: Admin Frontend (PENDING)
+- [ ] Unit 4: SuperAdmin Frontend (PENDING)
+
+#### Build and Test
+- [ ] Build and Test (PENDING - after all units complete)
 
 ### OPERATIONS PHASE
 - [ ] Operations (PLACEHOLDER)
