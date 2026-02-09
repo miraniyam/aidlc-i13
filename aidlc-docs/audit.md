@@ -98,23 +98,33 @@ AI-DLC 워크플로우를 시작해봅시다."
 
 ---
 
-## Requirements Analysis - User Answers Received
-**Timestamp**: 2026-02-09T13:59:42+09:00
-**User Input**: "답변 완료했습니다"
-**AI Response**: 사용자 답변 확인 및 requirements 문서 생성
-- 기술 스택: Python FastAPI (백엔드), React (프론트엔드), PostgreSQL (데이터베이스)
-- 배포: 로컬 개발 + AWS 운영 (Terraform 코드 포함)
-- 세션 관리: 자동 시작 (첫 주문), 수동 종료 (관리자)
-- 주문 상태: 관리자만 수동 변경
-- 메뉴 카테고리: 단일 레벨
-- 동시 사용자: 중규모 (10-50명)
-- 응답 시간: 2-3초
-- 데이터 보관: 6개월
-- 이미지 저장: 로컬 파일 시스템
-- 관리자 계정: 슈퍼 관리자가 생성
-- 테이블 설정: 사전 설정
-- 고객용 실시간 업데이트: 30초 폴링
-- 매장 식별자: UUID
-**Context**: Requirements Analysis 완료, User Stories 단계로 진행 예정
+## Requirements Update - Order Status Refinement
+**Timestamp**: 2026-02-09T14:07:49+09:00
+**User Input**: "주문 상태가 더 세분화되었으면 좋겠어. 대기중->준비중->요리완료->전달완료"
+**AI Response**: 주문 상태를 4단계로 세분화
+- 기존: 대기중/준비중/완료 (3단계)
+- 변경: 대기중/준비중/요리완료/전달완료 (4단계)
+- 상태 의미:
+  - 대기중 (pending): 주문 접수, 조리 시작 전
+  - 준비중 (preparing): 조리 시작
+  - 요리완료 (cooked): 조리 완료, 서빙 대기
+  - 전달완료 (delivered): 테이블 전달 완료
+- 업데이트된 파일:
+  - requirements/table-order-requirements.md (3.1.5, 3.2.2)
+  - aidlc-docs/inception/requirements/requirement-verification-questions.md (Q6)
+  - aidlc-docs/inception/requirements/requirements.md (FR-1.5, FR-2.2, Order 엔티티, BR-2, 시나리오)
+**Context**: Requirements 업데이트 완료, User Stories 단계 진행 대기
+
+---
+
+## User Stories - Started
+**Timestamp**: 2026-02-09T14:11:01+09:00
+**User Input**: "user story 만들어"
+**AI Response**: User Stories 단계 시작
+- Step 1: User Stories 필요성 검증 완료 (user-stories-assessment.md 생성)
+- 평가 결과: User Stories 실행 필요 (다중 페르소나, 복잡한 비즈니스 로직, 사용자 중심 설계)
+- Step 2-6: Story Generation Plan 생성 (story-generation-plan.md)
+- 8개 계획 질문 생성 (페르소나 상세도, 스토리 크기, 구성 방식, 수용 기준 형식, 우선순위, 기술 세부사항, 의존성, NFR 반영)
+**Context**: 사용자 답변 대기 중
 
 ---
