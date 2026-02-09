@@ -341,7 +341,7 @@ const OrderStatusButton = ({ order }: { order: Order }) => {
 
 **API Call**:
 ```typescript
-const handleStatusChange = async (orderId: string, newStatus: OrderStatus, currentVersion: number) => {
+const handleStatusChange = async (orderId: string, newStatus: OrderStatus) => {
   // Confirmation dialog (Q11: Custom Modal)
   const confirmed = await showConfirmModal(
     '주문 상태 변경',
@@ -352,26 +352,17 @@ const handleStatusChange = async (orderId: string, newStatus: OrderStatus, curre
   
   try {
     await axios.patch(`/api/admin/orders/${orderId}/status`, { 
-      new_status: newStatus,
-      current_version: currentVersion // 낙관적 잠금
+      status: newStatus
     });
     showToast('주문 상태가 변경되었습니다.', 'success');
     // SSE will update the UI
   } catch (error) {
-    if (error.response?.status === 409) {
-      // Version conflict
-      showErrorModal(
-        '상태 변경 실패',
-        '다른 관리자가 이미 이 주문의 상태를 변경했습니다. 새로고침 후 다시 시도해주세요.'
-      );
-      // Refresh dashboard data
-      fetchDashboardData();
-    } else {
-      handleAPIError(error); // Q7: Combination error handling
-    }
+    handleAPIError(error); // Q7: Combination error handling
   }
 };
 ```
+
+**Note**: Backend에 Optimistic Locking 미구현 (version 충돌 처리 제거)
 
 ---
 

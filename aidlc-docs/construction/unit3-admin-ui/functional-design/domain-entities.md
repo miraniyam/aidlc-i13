@@ -71,12 +71,13 @@ interface Order {
   total_amount: number;
   created_at: string; // ISO 8601
   updated_at: string; // ISO 8601
-  version: number; // 낙관적 잠금 (동시성 제어)
-  is_archived: boolean; // 세션 종료 시 true
   items: OrderItem[];
 }
 
-type OrderStatus = 'pending' | 'preparing' | 'cooked' | 'delivered';
+type OrderStatus = 'pending' | 'preparing' | 'ready' | 'served' | 'cancelled';
+```
+
+**Note**: Backend 실제 구현 기준 (version, is_archived 미구현)
 ```
 
 **Usage**: 주문 목록 표시, 상태 변경, 주문 삭제
@@ -270,8 +271,7 @@ interface TableWithOrders {
 
 ```typescript
 interface UpdateOrderStatusRequest {
-  new_status: OrderStatus;
-  current_version: number; // 낙관적 잠금 (동시성 제어)
+  status: OrderStatus;
 }
 
 interface UpdateOrderStatusResponse {
@@ -279,7 +279,7 @@ interface UpdateOrderStatusResponse {
 }
 ```
 
-**current_version**: 클라이언트가 알고 있는 Order version, 서버와 불일치 시 409 Conflict 에러
+**Note**: Backend에 Optimistic Locking 미구현 (current_version 제거)
 
 ---
 
@@ -288,14 +288,14 @@ interface UpdateOrderStatusResponse {
 ```typescript
 interface CompleteSessionRequest {
   table_id: string;
-  force?: boolean; // 미전달 주문 있어도 강제 종료
 }
 
 interface CompleteSessionResponse {
   session: TableSession;
-  moved_orders_count: number;
-  undelivered_orders_count: number; // 미전달 주문 개수
 }
+```
+
+**Note**: Backend에 force 옵션 미구현
 ```
 
 **force**: 미전달 주문 경고 후 사용자가 강제 종료 선택 시 true

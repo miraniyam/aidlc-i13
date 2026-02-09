@@ -600,54 +600,29 @@ interface FormValidationResult {
 
 ## 14. Concurrency Control Rules
 
-### 14.1 Optimistic Locking (Order Status Change)
+**Note**: Backend에 Optimistic Locking 미구현 (Phase 2로 연기)
 
-**Version Field**: Order.version
+**Current Behavior**: Last-Write-Wins
+- 두 관리자가 동시에 같은 주문 상태 변경 시 마지막 요청이 적용됨
+- 충돌 감지 없음
 
-**Conflict Detection**:
-```typescript
-// Client sends current version
-const updateRequest = {
-  new_status: 'preparing',
-  current_version: 5
-};
-
-// Server checks version
-if (order.version !== updateRequest.current_version) {
-  return 409 Conflict; // Version mismatch
-}
-
-// Update and increment version
-order.status = updateRequest.new_status;
-order.version += 1;
-```
-
-**Conflict Handling** (Frontend):
-- 409 Conflict 응답 수신 시
-- Error modal: "다른 관리자가 이미 이 주문의 상태를 변경했습니다. 새로고침 후 다시 시도해주세요."
-- 자동으로 대시보드 데이터 새로고침
-
-**Rationale**: 두 관리자가 동시에 같은 주문 상태 변경 시 충돌 방지
+**Phase 2 개선 사항**:
+- Order.version 필드 추가
+- 409 Conflict 에러 처리
+- Frontend에서 충돌 알림 및 새로고침
 
 ---
 
 ## 15. Data Archiving Rules
 
-### 15.1 Order Archiving
+**Note**: Backend에 Order Archiving 미구현 (Phase 2로 연기)
 
-**Archive Trigger**: 세션 종료 시
+**Current Behavior**: 세션 종료 후 주문 데이터 처리 방식 불명확 (Backend 로직 확인 필요)
 
-**Archive Process**:
-- Order.is_archived = true
-- Order는 삭제하지 않음 (데이터 보존)
+**Phase 2 개선 사항**:
+- Order.is_archived 필드 추가
+- 세션 종료 시 자동 아카이빙
 - OrderHistory에 order_ids 참조 저장
-
-**Archive Query**:
-```typescript
-// Active orders only
-const activeOrders = orders.filter(o => !o.is_archived);
-
-// Archived orders only
 const archivedOrders = orders.filter(o => o.is_archived);
 ```
 

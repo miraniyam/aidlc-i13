@@ -57,6 +57,8 @@ class AuthAPI {
 }
 ```
 
+**Backend Endpoint**: `POST /api/admin/auth/login`
+
 ---
 
 ### DashboardAPI
