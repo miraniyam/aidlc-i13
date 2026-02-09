@@ -20,7 +20,7 @@ B) 표준 (이름, 역할, 목표, 동기, 불만사항 포함)
 C) 상세 (표준 + 기술 수준, 사용 환경, 행동 패턴 포함)
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ---
 
@@ -33,7 +33,7 @@ C) 작은 단위 (Task 수준, 예: "고객으로서 장바구니에서 수량�
 D) 혼합 (Epic + Feature 수준 혼합)
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ---
 
@@ -46,7 +46,7 @@ C) Persona 기반 (사용자별: 고객 스토리, 관리자 스토리, 슈퍼 �
 D) Domain 기반 (도메인별: 주문 도메인, 메뉴 도메인, 테이블 도메인)
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -59,7 +59,7 @@ C) Scenario-based (시나리오 기반)
 D) 혼합 (상황에 따라 적절한 형식 사용)
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: D
 
 ---
 
@@ -71,7 +71,7 @@ B) 표시 안 함 (순서만 의미 있음)
 C) MVP 여부만 표시 (MVP / Post-MVP)
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: C
 
 ---
 
@@ -83,7 +83,7 @@ B) 최소한 포함 (API 엔드포인트, 데이터 모델 언급)
 C) 상세 포함 (기술 스택, 구현 힌트 포함)
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: C
 
 ---
 
@@ -95,7 +95,7 @@ B) 명시 안 함 (순서로만 표현)
 C) 중요한 것만 명시
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: A
 
 ---
 
@@ -107,69 +107,69 @@ B) 각 스토리의 Acceptance Criteria에 포함
 C) 반영 안 함 (별도 NFR 문서로 관리)
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 
+[Answer]: B
 
 ---
 
 ## Story Generation Plan
 
 ### Phase 1: Persona Generation
-- [ ] Load requirements document
-- [ ] Identify all user types from requirements
-- [ ] Create persona for each user type:
-  - [ ] 고객 (Customer) persona
-  - [ ] 매장 관리자 (Store Admin) persona
-  - [ ] 슈퍼 관리자 (Super Admin) persona
-- [ ] Define persona attributes based on Question 1 answer
-- [ ] Save personas to `aidlc-docs/inception/user-stories/personas.md`
+- [x] Load requirements document
+- [x] Identify all user types from requirements
+- [x] Create persona for each user type:
+  - [x] 고객 (Customer) persona
+  - [x] 매장 관리자 (Store Admin) persona
+  - [x] 슈퍼 관리자 (Super Admin) persona
+- [x] Define persona attributes based on Question 1 answer
+- [x] Save personas to `aidlc-docs/inception/user-stories/personas.md`
 
 ### Phase 2: Story Identification
-- [ ] Review functional requirements (FR-1.1 to FR-2.5)
-- [ ] Map requirements to user personas
-- [ ] Identify user stories based on Question 2 (granularity) and Question 3 (organization)
-- [ ] Group stories by chosen organization method
+- [x] Review functional requirements (FR-1.1 to FR-2.5)
+- [x] Map requirements to user personas
+- [x] Identify user stories based on Question 2 (granularity) and Question 3 (organization)
+- [x] Group stories by chosen organization method
 
 ### Phase 3: Story Writing
-- [ ] Write each user story in standard format:
-  - [ ] Title
-  - [ ] User story statement ("As a [persona], I want [goal] so that [benefit]")
-  - [ ] Description (if needed)
-  - [ ] Acceptance criteria (format based on Question 4)
-  - [ ] Priority (if Question 5 = A or C)
-  - [ ] Technical notes (if Question 6 = B or C)
-  - [ ] Dependencies (if Question 7 = A or C)
-- [ ] Ensure stories follow INVEST criteria:
-  - [ ] Independent
-  - [ ] Negotiable
-  - [ ] Valuable
-  - [ ] Estimable
-  - [ ] Small
-  - [ ] Testable
+- [x] Write each user story in standard format:
+  - [x] Title
+  - [x] User story statement ("As a [persona], I want [goal] so that [benefit]")
+  - [x] Description (if needed)
+  - [x] Acceptance criteria (format based on Question 4)
+  - [x] Priority (if Question 5 = A or C)
+  - [x] Technical notes (if Question 6 = B or C)
+  - [x] Dependencies (if Question 7 = A or C)
+- [x] Ensure stories follow INVEST criteria:
+  - [x] Independent
+  - [x] Negotiable
+  - [x] Valuable
+  - [x] Estimable
+  - [x] Small
+  - [x] Testable
 
 ### Phase 4: NFR Integration
-- [ ] Based on Question 8 answer, integrate non-functional requirements:
-  - [ ] If A: Create separate NFR stories
-  - [ ] If B: Add NFR to acceptance criteria
-  - [ ] If C: Skip (managed separately)
+- [x] Based on Question 8 answer, integrate non-functional requirements:
+  - [x] If A: Create separate NFR stories
+  - [x] If B: Add NFR to acceptance criteria
+  - [x] If C: Skip (managed separately)
 
 ### Phase 5: Story Organization
-- [ ] Organize stories based on Question 3 answer
-- [ ] Add story numbering or IDs
-- [ ] Create story map or hierarchy (if applicable)
-- [ ] Save stories to `aidlc-docs/inception/user-stories/stories.md`
+- [x] Organize stories based on Question 3 answer
+- [x] Add story numbering or IDs
+- [x] Create story map or hierarchy (if applicable)
+- [x] Save stories to `aidlc-docs/inception/user-stories/stories.md`
 
 ### Phase 6: Validation
-- [ ] Verify all requirements are covered by stories
-- [ ] Check INVEST criteria compliance
-- [ ] Ensure acceptance criteria are testable
-- [ ] Validate persona-story mapping
-- [ ] Review for completeness and clarity
+- [x] Verify all requirements are covered by stories
+- [x] Check INVEST criteria compliance
+- [x] Ensure acceptance criteria are testable
+- [x] Validate persona-story mapping
+- [x] Review for completeness and clarity
 
 ### Phase 7: Documentation
-- [ ] Create summary section in stories.md
-- [ ] Add story count and organization overview
-- [ ] Link personas to relevant stories
-- [ ] Add any necessary diagrams or user journey maps
+- [x] Create summary section in stories.md
+- [x] Add story count and organization overview
+- [x] Link personas to relevant stories
+- [x] Add any necessary diagrams or user journey maps
 
 ---
 
