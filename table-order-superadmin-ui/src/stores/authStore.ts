@@ -2,24 +2,28 @@ import { create } from 'zustand'
 
 interface AuthState {
   token: string | null
-  user: { id: string; username: string; role: string } | null
+  adminId: number | null
+  role: string | null
   isAuthenticated: boolean
-  setAuth: (token: string, user: { id: string; username: string; role: string }) => void
+  setAuth: (token: string, adminId: number, role: string) => void
   logout: () => void
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   token: localStorage.getItem('token'),
-  user: JSON.parse(localStorage.getItem('user') || 'null'),
+  adminId: JSON.parse(localStorage.getItem('adminId') || 'null'),
+  role: localStorage.getItem('role'),
   isAuthenticated: !!localStorage.getItem('token'),
-  setAuth: (token, user) => {
+  setAuth: (token, adminId, role) => {
     localStorage.setItem('token', token)
-    localStorage.setItem('user', JSON.stringify(user))
-    set({ token, user, isAuthenticated: true })
+    localStorage.setItem('adminId', JSON.stringify(adminId))
+    localStorage.setItem('role', role)
+    set({ token, adminId, role, isAuthenticated: true })
   },
   logout: () => {
     localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    set({ token: null, user: null, isAuthenticated: false })
+    localStorage.removeItem('adminId')
+    localStorage.removeItem('role')
+    set({ token: null, adminId: null, role: null, isAuthenticated: false })
   },
 }))

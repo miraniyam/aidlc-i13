@@ -9,7 +9,7 @@ export function useLogin() {
   return useMutation({
     mutationFn: (data: LoginRequest) => authApi.login(data),
     onSuccess: (res) => {
-      setAuth(res.access_token, res.user)
+      setAuth(res.token, res.admin_id, res.role)
     },
   })
 }

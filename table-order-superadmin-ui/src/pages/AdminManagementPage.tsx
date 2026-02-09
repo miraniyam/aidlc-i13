@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAdmins, useCreateAdmin } from '@/hooks/useAdmins'
 import AdminList from '@/components/admin/AdminList'
 import AdminForm from '@/components/admin/AdminForm'
+import type { CreateAdminRequest } from '@/types/api'
 
 export default function AdminManagementPage() {
   const [showForm, setShowForm] = useState(false)
@@ -9,7 +10,7 @@ export default function AdminManagementPage() {
   const { data: admins = [], isLoading } = useAdmins()
   const createAdmin = useCreateAdmin()
 
-  const handleCreate = (data: { store_id: string; username: string; password: string }) => {
+  const handleCreate = (data: CreateAdminRequest) => {
     createAdmin.mutate(data, { onSuccess: () => setShowForm(false) })
   }
 

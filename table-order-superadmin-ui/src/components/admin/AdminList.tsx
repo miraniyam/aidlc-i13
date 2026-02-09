@@ -8,7 +8,7 @@ interface Props {
 
 export default function AdminList({ admins, filter }: Props) {
   const filtered = admins.filter(
-    (a) => a.username.includes(filter) || a.store_id.includes(filter)
+    (a) => a.username.includes(filter) || (a.store_id?.includes(filter) ?? false)
   )
 
   return (
@@ -25,7 +25,7 @@ export default function AdminList({ admins, filter }: Props) {
       <tbody>
         {filtered.map((admin) => (
           <tr key={admin.id} className="border-t">
-            <td className="px-4 py-3">{admin.store_id}</td>
+            <td className="px-4 py-3">{admin.store_id ?? '-'}</td>
             <td className="px-4 py-3">{admin.username}</td>
             <td className="px-4 py-3">
               <span className={`px-2 py-1 rounded text-sm ${admin.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>

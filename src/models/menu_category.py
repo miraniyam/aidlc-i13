@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, UniqueConstraint
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from src.core.database import Base
@@ -8,7 +7,7 @@ class MenuCategory(Base):
     __tablename__ = "menu_categories"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    store_id = Column(UUID(as_uuid=True), ForeignKey("stores.id", ondelete="CASCADE"), nullable=False)
+    store_id = Column(String, ForeignKey("stores.id", ondelete="CASCADE"), nullable=False)
     name = Column(String, nullable=False)
     display_order = Column(Integer, nullable=False, default=0)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
