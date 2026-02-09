@@ -4,8 +4,7 @@ import { ORDER_STATUS_CONFIG } from '@/utils/constants';
 import BottomNavigation from '@/components/common/BottomNavigation';
 
 const OrdersPage = () => {
-  const sessionId = useAuthStore(state => state.sessionId);
-  const { data: orders, isLoading, error } = useOrders(sessionId || '', true);
+  const { data: orders, isLoading, error } = useOrders(true);
 
   if (isLoading) {
     return (
@@ -37,12 +36,12 @@ const OrdersPage = () => {
             {orders.map((order) => {
               const statusConfig = ORDER_STATUS_CONFIG[order.status];
               return (
-                <div key={order.orderId} className="bg-white p-4 rounded-lg shadow">
+                <div key={order.id} className="bg-white p-4 rounded-lg shadow">
                   <div className="flex justify-between items-start mb-3">
                     <div>
-                      <h3 className="font-medium">주문 #{order.orderNumber}</h3>
+                      <h3 className="font-medium">주문 #{order.id}</h3>
                       <p className="text-sm text-gray-500">
-                        {new Date(order.createdAt).toLocaleString('ko-KR')}
+                        {new Date(order.created_at).toLocaleString('ko-KR')}
                       </p>
                     </div>
                     <span className={`px-3 py-1 rounded-full text-sm ${statusConfig.bgColor} ${statusConfig.textColor}`}>
@@ -51,15 +50,15 @@ const OrdersPage = () => {
                   </div>
                   
                   <div className="space-y-1 mb-3">
-                    {order.items.map((item) => (
-                      <div key={item.orderItemId} className="text-sm text-gray-600">
-                        - {item.menuName} x{item.quantity}
+                    {order.order_items.map((item) => (
+                      <div key={item.id} className="text-sm text-gray-600">
+                        - {item.menu_name} x{item.quantity}
                       </div>
                     ))}
                   </div>
                   
                   <div className="text-right font-medium">
-                    총액: {order.totalAmount.toLocaleString()}원
+                    총액: {Number(order.total_price).toLocaleString()}원
                   </div>
                 </div>
               );

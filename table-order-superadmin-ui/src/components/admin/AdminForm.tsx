@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 interface Props {
-  onSubmit: (data: { store_id: string; username: string; password: string }) => void
+  onSubmit: (data: { username: string; password: string; role: string; store_id?: string }) => void
   onCancel: () => void
   isLoading: boolean
 }
@@ -13,7 +13,7 @@ export default function AdminForm({ onSubmit, onCancel, isLoading }: Props) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit({ store_id: storeId, username, password })
+    onSubmit({ username, password, role: 'store_admin', store_id: storeId })
   }
 
   return (

@@ -9,17 +9,17 @@ import { useMenus } from '@/hooks/useMenus';
 import { Menu, MenuCategory } from '@/types/api';
 
 const MenuPage = () => {
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | undefined>();
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | undefined>();
   const [selectedMenu, setSelectedMenu] = useState<Menu | null>(null);
 
   const { data: menus, isLoading, isError, error, refetch } = useMenus(selectedCategoryId);
 
   // Mock categories - will be replaced with actual API call
   const mockCategories: MenuCategory[] = [
-    { categoryId: '1', categoryName: '메인 요리', displayOrder: 1 },
-    { categoryId: '2', categoryName: '사이드', displayOrder: 2 },
-    { categoryId: '3', categoryName: '음료', displayOrder: 3 },
-    { categoryId: '4', categoryName: '디저트', displayOrder: 4 },
+    { id: 1, name: '메인 요리', display_order: 1, store_id: 'STORE001', created_at: '', updated_at: '' },
+    { id: 2, name: '사이드', display_order: 2, store_id: 'STORE001', created_at: '', updated_at: '' },
+    { id: 3, name: '음료', display_order: 3, store_id: 'STORE001', created_at: '', updated_at: '' },
+    { id: 4, name: '디저트', display_order: 4, store_id: 'STORE001', created_at: '', updated_at: '' },
   ];
 
   const handleMenuClick = (menu: Menu) => {

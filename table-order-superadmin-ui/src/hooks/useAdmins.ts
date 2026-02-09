@@ -20,7 +20,7 @@ export function useCreateAdmin() {
 export function useActivateAdmin() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) => adminApi.activateAdmin(id),
+    mutationFn: (id: number) => adminApi.activateAdmin(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['admins'] }),
   })
 }
@@ -28,7 +28,7 @@ export function useActivateAdmin() {
 export function useDeactivateAdmin() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) => adminApi.deactivateAdmin(id),
+    mutationFn: (id: number) => adminApi.deactivateAdmin(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['admins'] }),
   })
 }

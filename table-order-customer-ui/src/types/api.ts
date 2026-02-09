@@ -1,80 +1,85 @@
-// Mock API Types - Will be replaced with OpenAPI-generated types later
+// API Types - Aligned with Backend API
 
 export interface Menu {
-  menuId: string;
-  menuName: string;
+  id: number;
+  name: string;
   price: number;
-  description: string;
-  imageUrl?: string;
-  categoryId: string;
-  categoryName?: string;
+  description: string | null;
+  image_path: string | null;
+  category_id: number;
+  is_available: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface MenuCategory {
-  categoryId: string;
-  categoryName: string;
-  displayOrder: number;
+  id: number;
+  name: string;
+  display_order: number;
+  store_id: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface CartItem {
-  menuId: string;
+  menuId: number;
   menuName: string;
   price: number;
   quantity: number;
-  imageUrl?: string;
+  imageUrl?: string | null;
 }
 
-export type OrderStatus = 'pending' | 'preparing' | 'ready' | 'served';
+export type OrderStatus = 'pending' | 'preparing' | 'ready' | 'served' | 'cancelled';
 
 export interface Order {
-  orderId: string;
-  orderNumber: string;
-  sessionId: string;
-  tableId: string;
-  items: OrderItem[];
-  totalAmount: number;
+  id: number;
+  table_session_id: number;
   status: OrderStatus;
-  createdAt: string;
-  updatedAt: string;
+  total_price: number;
+  created_at: string;
+  updated_at: string;
+  order_items: OrderItem[];
 }
 
 export interface OrderItem {
-  orderItemId: string;
-  menuId: string;
-  menuName: string;
+  id: number;
+  order_id: number;
+  menu_id: number;
+  menu_name: string;
   quantity: number;
-  unitPrice: number;
+  unit_price: number;
   subtotal: number;
 }
 
 export interface LoginRequest {
-  tableId: string;
+  table_number: string;
   password: string;
+  store_id: string;
 }
 
 export interface LoginResponse {
-  token: string;
-  tableId: string;
-  sessionId: string;
+  access_token: string;
+  token_type: string;
+  table_id: number;
+  session_id: number;
+  store_id: string;
 }
 
 export interface CreateOrderRequest {
-  sessionId: string;
-  tableId: string;
   items: {
-    menuId: string;
+    menu_id: number;
     quantity: number;
   }[];
 }
 
 export interface CreateOrderResponse {
-  orderId: string;
-  orderNumber: string;
-  totalAmount: number;
+  order_id: number;
+  total_price: number;
+  status: OrderStatus;
+  created_at: string;
 }
 
 export interface ApiError {
-  code: string;
-  message: string;
-  details?: Record<string, unknown>;
+  detail: string;
 }

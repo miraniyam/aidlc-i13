@@ -13,11 +13,11 @@ const MenuDetailModal = ({ menu, onClose }: MenuDetailModalProps) => {
 
   const handleAddToCart = () => {
     addItem({
-      menuId: menu.menuId,
-      menuName: menu.menuName,
-      price: menu.price,
+      menuId: menu.id,
+      menuName: menu.name,
+      price: Number(menu.price),
       quantity,
-      imageUrl: menu.imageUrl,
+      imageUrl: menu.image_path,
     });
     onClose();
   };
@@ -36,10 +36,10 @@ const MenuDetailModal = ({ menu, onClose }: MenuDetailModalProps) => {
       <div className="bg-white rounded-t-2xl md:rounded-2xl w-full md:max-w-lg max-h-[90vh] overflow-y-auto">
         {/* Image */}
         <div className="aspect-video bg-gray-200 relative">
-          {menu.imageUrl ? (
+          {menu.image_path ? (
             <img
-              src={menu.imageUrl}
-              alt={menu.menuName}
+              src={menu.image_path}
+              alt={menu.name}
               className="w-full h-full object-cover"
             />
           ) : (
@@ -82,11 +82,11 @@ const MenuDetailModal = ({ menu, onClose }: MenuDetailModalProps) => {
         {/* Content */}
         <div className="p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            {menu.menuName}
+            {menu.name}
           </h2>
           <p className="text-gray-600 mb-4">{menu.description}</p>
           <p className="text-2xl font-bold text-blue-600 mb-6">
-            {menu.price.toLocaleString()}원
+            {Number(menu.price).toLocaleString()}원
           </p>
 
           {/* Quantity Selector */}
@@ -141,7 +141,7 @@ const MenuDetailModal = ({ menu, onClose }: MenuDetailModalProps) => {
             onClick={handleAddToCart}
             className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
-            {(menu.price * quantity).toLocaleString()}원 담기
+            {(Number(menu.price) * quantity).toLocaleString()}원 담기
           </button>
         </div>
       </div>

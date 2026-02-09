@@ -1,9 +1,4 @@
-import type {
-  LoginRequest,
-  LoginResponse,
-  CreateAdminRequest,
-  Admin,
-} from '@/types/api'
+import type { LoginRequest, LoginResponse, CreateAdminRequest, Admin } from '@/types/api'
 import { mockAdmins, mockSuperAdmin } from './mockData'
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms))
@@ -14,11 +9,7 @@ export const mockAuthApi = {
   async login(data: LoginRequest): Promise<LoginResponse> {
     await delay(300)
     if (data.username === mockSuperAdmin.username && data.password === mockSuperAdmin.password) {
-      return {
-        access_token: 'mock-jwt-token',
-        token_type: 'bearer',
-        user: { id: mockSuperAdmin.id, username: mockSuperAdmin.username, role: mockSuperAdmin.role },
-      }
+      return { token: 'mock-jwt-token', admin_id: mockSuperAdmin.id, role: mockSuperAdmin.role }
     }
     throw new Error('Invalid credentials')
   },
@@ -33,8 +24,8 @@ export const mockAdminApi = {
   async createAdmin(data: CreateAdminRequest): Promise<Admin> {
     await delay(300)
     const newAdmin: Admin = {
-      id: String(nextId++),
-      store_id: data.store_id,
+      id: nextId++,
+      store_id: data.store_id ?? null,
       username: data.username,
       is_active: true,
       role: 'store_admin',
@@ -44,7 +35,7 @@ export const mockAdminApi = {
     return newAdmin
   },
 
-  async activateAdmin(id: string): Promise<Admin> {
+  async activateAdmin(id: number): Promise<Admin> {
     await delay(200)
     const admin = admins.find((a) => a.id === id)
     if (!admin) throw new Error('Admin not found')
@@ -52,7 +43,7 @@ export const mockAdminApi = {
     return { ...admin }
   },
 
-  async deactivateAdmin(id: string): Promise<Admin> {
+  async deactivateAdmin(id: number): Promise<Admin> {
     await delay(200)
     const admin = admins.find((a) => a.id === id)
     if (!admin) throw new Error('Admin not found')

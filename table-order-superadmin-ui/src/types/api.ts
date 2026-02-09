@@ -1,7 +1,7 @@
 // Admin Types
 export interface Admin {
-  id: string
-  store_id: string
+  id: number
+  store_id: string | null
   username: string
   is_active: boolean
   role: 'store_admin' | 'super_admin'
@@ -15,30 +15,15 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  access_token: string
-  token_type: string
-  user: {
-    id: string
-    username: string
-    role: string
-  }
+  token: string
+  admin_id: number
+  role: string
 }
 
 // Admin Management Types
 export interface CreateAdminRequest {
-  store_id: string
   username: string
   password: string
-}
-
-export interface CreateAdminResponse {
-  admin: Admin
-}
-
-export interface AdminListResponse {
-  admins: Admin[]
-}
-
-export interface UpdateAdminStatusResponse {
-  admin: Admin
+  role: string
+  store_id?: string
 }
