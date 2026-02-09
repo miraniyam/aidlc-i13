@@ -21,9 +21,9 @@
 - [x] Workspace Detection (COMPLETED - 2026-02-09T13:12:50+09:00)
 - [x] Requirements Analysis (COMPLETED - 2026-02-09T13:59:42+09:00)
 - [x] User Stories (COMPLETED - 2026-02-09T14:17:12+09:00)
-- [ ] Workflow Planning (PENDING)
-- [ ] Application Design (TBD)
-- [ ] Units Generation (TBD)
+- [x] Application Design (COMPLETED - 2026-02-09T14:50:26+09:00)
+- [x] Workflow Planning (COMPLETED - 2026-02-09T14:51:00+09:00)
+- [ ] Units Generation (PENDING)
 
 ### CONSTRUCTION PHASE
 - [ ] Per-Unit Design & Code Generation (PENDING)

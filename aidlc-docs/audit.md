@@ -201,3 +201,178 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: Application Design 시작
 
 ---
+
+## Application Design - Planning Started
+**Timestamp**: 2026-02-09T14:24:31+09:00
+**AI Response**: Application Design 계획 단계 시작
+- 8개 설계 질문 생성 (컴포넌트 구성, 서비스 레이어, 실시간 통신, 인증/인가, 데이터 접근, 프론트엔드 구조, 상태 관리, API 통신)
+- application-design-plan.md 생성
+**Context**: 사용자 답변 대기 중
+
+---
+
+## Application Design - Answers Received
+**Timestamp**: 2026-02-09T14:34:03+09:00
+**User Input**: "답변 완료했습니다"
+**AI Response**: 사용자 답변 확인 및 분석 완료
+- Q1: B (레이어 기반 - Controller, Service, Repository)
+- Q2: B (작은 단위 서비스 - 기능별)
+- Q3: C (이벤트 기반 - Event Bus + SSE Publisher)
+- Q4: A (전용 Auth 컴포넌트)
+- Q5: B (ORM 직접 사용 - SQLAlchemy)
+- Q6: B (기능 기반 컴포넌트)
+- Q7: C (Zustand 상태 관리)
+- Q8: C (React Query API 통신)
+- 답변 분석: 모든 답변 명확, 추가 질문 불필요
+**Context**: Application Design 생성 시작
+
+---
+
+## Application Design - Generation Complete
+**Timestamp**: 2026-02-09T14:34:03+09:00
+**AI Response**: Application Design 생성 완료
+- Phase 1-7: 모든 단계 완료
+- 생성된 산출물:
+  - components.md: 백엔드 컴포넌트 (Controllers 3개, Services 15개, Middleware 3개, Models 9개), 프론트엔드 컴포넌트 (Customer 3개, Admin 4개, SuperAdmin 1개, Common 2개)
+  - component-methods.md: 각 컴포넌트의 메서드 시그니처 및 입출력 타입
+  - services.md: 서비스 레이어 구조, 오케스트레이션 패턴 (Simple Call, Event-Driven, Multi-Step, File Upload)
+  - component-dependency.md: 의존성 매트릭스, 통신 패턴 (HTTP, SSE, Polling, Event-Driven), 데이터 플로우
+- 아키텍처 특징:
+  - 레이어 기반 (Controller → Service → ORM)
+  - 작은 단위 서비스 (기능별 15개)
+  - 이벤트 기반 실시간 (EventBus + SSEPublisher)
+  - ORM 직접 사용 (Repository 패턴 없음)
+  - 기능 기반 프론트엔드 (Menu, Cart, Order 등)
+  - Zustand (클라이언트 상태) + React Query (서버 상태)
+**Context**: 사용자 승인 대기 중
+
+---
+
+## Application Design - Considerations Added
+**Timestamp**: 2026-02-09T14:40:21+09:00
+**User Input**: "너가 말한 해결방안을 우리 inspection에도 적어줘"
+**AI Response**: Design Considerations & Solutions 섹션 추가
+- 3가지 주요 고려사항 및 해결 방안:
+  1. 테이블 세션 동시성 문제 → Unique Constraint + Pessimistic Locking
+  2. SSE 연결 관리 및 확장성 → Redis Pub/Sub + Frontend Auto-Reconnect
+  3. 주문 상태 전이 검증 → State Machine + OrderStatusHistory
+- 추가 고려사항 3가지:
+  4. 이미지 파일 검증 (크기, 타입)
+  5. JWT 토큰 갱신 메커니즘
+  6. 에러 처리 및 롤백 전략
+- 우선순위별 구현 순서 정의 (High/Medium/Low)
+- component-dependency.md 업데이트 완료
+**Context**: 사용자 승인 대기 중
+
+---
+
+## Application Design - Component Responsibilities Clarified
+**Timestamp**: 2026-02-09T14:45:00+09:00
+**User Input**: "수정해"
+**AI Response**: 컴포넌트 책임 명확화 수정 완료
+- 수정된 컴포넌트 3개:
+  1. AdminController: Facade 패턴 명시, 비즈니스 로직 없이 라우팅만 담당
+  2. TableLoginService: 세션 생성 책임 제거 (CreateOrderService로 이동)
+  3. DeleteOrderService: 총 주문액 재계산 책임 제거 (프론트엔드에서 실시간 계산)
+- 업데이트된 파일:
+  - components.md: 3개 컴포넌트 책임 명확화
+  - component-methods.md: TableLoginService, DeleteOrderService 메서드 시그니처 수정
+- 단일 책임 원칙(SRP) 준수 개선
+**Context**: 사용자 승인 대기 중
+
+---
+
+## Application Design - Services Consolidated
+**Timestamp**: 2026-02-09T14:47:47+09:00
+**User Input**: "수정해줘"
+**AI Response**: 서비스 레이어 통합 및 개선 완료
+- 서비스 통합 (15개 → 9개):
+  1. AuthenticationService: TableLoginService + AdminLoginService + SuperAdminLoginService 통합
+  2. MenuService: MenuQueryService + CreateMenuService + UpdateMenuService + DeleteMenuService 통합
+  3. ManageAdminService: CreateAdminService + ManageAdminService 통합
+- 서비스 명확화:
+  - OrderQueryService: 활성 세션 주문 조회로 명확화
+  - OrderHistoryQueryService: 완료된 세션 주문 조회로 명확화
+- 트랜잭션 관리 추가:
+  - CompleteTableSessionService에 try-catch-rollback 패턴 추가
+  - Multi-step 작업의 원자성 보장
+- 업데이트된 파일:
+  - services.md: Service Catalog, 오케스트레이션 패턴, Summary 업데이트
+  - components.md: 서비스 목록 및 책임 업데이트 (9개 서비스)
+  - component-methods.md: 통합된 서비스 메서드 시그니처 업데이트
+- DRY 원칙 준수, 응집도 향상
+**Context**: 사용자 승인 대기 중
+
+---
+
+## Application Design - Approved
+**Timestamp**: 2026-02-09T14:50:26+09:00
+**User Input**: "승인합니다"
+**AI Response**: Application Design 승인 완료
+- 최종 아키텍처:
+  - 레이어 기반 (Controller → Service → ORM)
+  - 9개 서비스 (통합 후)
+  - 이벤트 기반 실시간 (EventBus + SSEPublisher)
+  - 3가지 주요 고려사항 해결 방안 포함
+  - 순환참조 없음
+  - 컴포넌트 책임 명확
+  - DRY 원칙 준수
+- 생성된 산출물:
+  - components.md
+  - component-methods.md
+  - services.md
+  - component-dependency.md
+**Context**: Workflow Planning 또는 Units Generation 단계로 진행 가능
+
+---
+
+## Workflow Planning - Started
+**Timestamp**: 2026-02-09T14:51:00+09:00
+**User Input**: "네"
+**AI Response**: Workflow Planning 시작
+- 프로젝트 컨텍스트 분석 완료
+- 영향 분석 완료 (User-facing, Structural, Data Model, API, NFR)
+- 5개 유닛 제안:
+  1. Backend API & Database (우선순위 1)
+  2. Customer Frontend (우선순위 2)
+  3. Admin Frontend (우선순위 2)
+  4. SuperAdmin Frontend (우선순위 3)
+  5. Infrastructure (Terraform) (우선순위 4)
+- 병렬 개발 기회: Unit 2 + Unit 3 동시 개발 가능
+- 예상 소요 시간: 41-58시간 (5-7일)
+- Units Generation 강력 권장
+- workflow-planning.md 생성 완료
+**Context**: 사용자 승인 대기 중
+
+---
+
+## Workflow Planning - Approved
+**Timestamp**: 2026-02-09T14:56:51+09:00
+**User Input**: "unit generation 실행하자"
+**AI Response**: Workflow Planning 승인 완료, Units Generation 시작
+**Context**: Units Generation PART 1 (Planning) 진행 중
+
+---
+
+## Units Generation - Planning Started
+**Timestamp**: 2026-02-09T14:57:00+09:00
+**User Input**: "unit generation 실행하자"
+**AI Response**: Units Generation Planning 시작
+- Unit of Work Plan 생성 완료
+- 6개 질문 생성:
+  1. Deployment Model (Monorepo vs Multi-repo vs Monolith)
+  2. Frontend-Backend Integration (API Contract First vs Backend First vs Mock-based)
+  3. Infrastructure Unit Timing (Early vs Late vs Incremental)
+  4. Unit Development Priority (순서 확정)
+  5. Code Organization Strategy (Feature-based vs Layer-based vs Domain-based)
+  6. Testing Strategy per Unit
+- 5단계 Generation Plan:
+  1. Mandatory Artifacts Generation
+  2. Dependency Analysis
+  3. Story Mapping
+  4. Validation
+  5. Documentation Finalization
+- unit-of-work-plan.md 생성 완료
+**Context**: 사용자 답변 대기 중
+
+---
