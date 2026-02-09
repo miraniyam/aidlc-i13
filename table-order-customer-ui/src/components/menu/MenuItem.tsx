@@ -12,10 +12,10 @@ const MenuItem = ({ menu, onClick }: MenuItemProps) => {
       className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden text-left"
     >
       <div className="aspect-square bg-gray-200 relative">
-        {menu.imageUrl ? (
+        {menu.image_path ? (
           <img
-            src={menu.imageUrl}
-            alt={menu.menuName}
+            src={menu.image_path}
+            alt={menu.name}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -38,13 +38,13 @@ const MenuItem = ({ menu, onClick }: MenuItemProps) => {
       </div>
       <div className="p-3">
         <h3 className="font-medium text-gray-900 mb-1 line-clamp-1">
-          {menu.menuName}
+          {menu.name}
         </h3>
         <p className="text-sm text-gray-500 mb-2 line-clamp-2">
           {menu.description}
         </p>
         <p className="text-lg font-bold text-blue-600">
-          {menu.price.toLocaleString()}원
+          {Number(menu.price).toLocaleString()}원
         </p>
       </div>
     </button>

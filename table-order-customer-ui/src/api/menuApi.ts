@@ -2,14 +2,19 @@ import apiClient from './client';
 import { Menu } from '@/types/api';
 
 export const menuApi = {
-  getMenus: async (categoryId?: string): Promise<Menu[]> => {
-    const params = categoryId ? { category: categoryId } : {};
-    const response = await apiClient.get<Menu[]>('/api/menus', { params });
+  getMenus: async (categoryId?: number, storeId?: string): Promise<Menu[]> => {
+    const params: Record<string, any> = {};
+    if (categoryId !== undefined) params.category_id = categoryId;
+    if (storeId) params.store_id = storeId;
+    
+    const response = await apiClient.get<Menu[]>('/api/customer/menus', { params });
     return response.data;
   },
 
-  getMenuDetail: async (menuId: string): Promise<Menu> => {
-    const response = await apiClient.get<Menu>(`/api/menus/${menuId}`);
+  getMenuDetail: async (menuId: number, storeId: string): Promise<Menu> => {
+    const response = await apiClient.get<Menu>(`/api/customer/menus/${menuId}`, {
+      params: { store_id: storeId },
+    });
     return response.data;
   },
 };

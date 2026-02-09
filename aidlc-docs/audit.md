@@ -1224,3 +1224,73 @@ AI-DLC 워크플로우를 시작해봅시다."
 >>>>>>> Stashed changes
 
 ---
+
+## CONSTRUCTION Phase - Unit 2 NFR Design - Complete
+**Timestamp**: 2026-02-09T17:00:00+09:00
+**User Input**: "unit2 NFR Design 도 해줘"
+**AI Response**: NFR Design 단계 완료
+**Context**: Unit 2 NFR Design 완료
+**Artifacts Generated**:
+- nfr-design-patterns.md (9개 패턴 카테고리, 성능/캐싱/에러처리/보안/상태관리/복원력/라우팅/모니터링)
+- logical-components.md (4개 논리적 레이어, 컴포넌트 의존성, 데이터 플로우)
+
+**주요 설계 결정**:
+- Performance: Route-based code splitting, WebP + Lazy loading, Tree shaking + Minification
+- Caching: React Query (5min staleTime), Long-term static asset caching
+- Error Handling: Axios interceptor + React Query + Toast, Manual retry
+- Security: localStorage + Client-side expiry check + Auto-logout, React default XSS protection
+- State Management: Zustand persist middleware, React Query with 30s polling
+- Resilience: Navigator.onLine API, React Query loading states
+- Routing: HOC-based protected routes, Bottom navigation bar
+- Monitoring: Console logging (development only), Browser DevTools
+
+**논리적 아키텍처**:
+- Layer 1: Presentation Layer (Pages, Components, UI Logic)
+- Layer 2: State Management Layer (Zustand, React Query)
+- Layer 3: API Client Layer (Axios, API Modules)
+- Layer 4: Utility Layer (Token utils, Validators, Constants)
+
+**다음 단계**: Infrastructure Design 또는 다른 Unit 진행
+
+---
+
+## CONSTRUCTION Phase - Unit 2 Backend API Alignment
+**Timestamp**: 2026-02-09T17:15:00+09:00
+**User Input**: "unit1의 개발 내용에 맞춰서 unit2에 개발에 잘못된 부분을 수정해"
+**AI Response**: Unit 1 Backend API와 Unit 2 Frontend 간 불일치 수정 완료
+**Context**: Backend API 실제 구현에 맞춰 Frontend 코드 수정
+
+**발견된 불일치 사항**:
+1. Login API 엔드포인트: `/api/customer/login` → `/api/customer/auth/login`
+2. Login Request 필드: `tableId` → `table_number`, `store_id` 추가
+3. Menu API 엔드포인트: `/api/menus` → `/api/customer/menus`
+4. Menu API 파라미터: `category` → `category_id`, `store_id` 추가
+5. Order API 엔드포인트: `/api/orders` → `/api/customer/orders`
+6. Order API: `session_id` 파라미터 제거 (JWT에서 자동 추출)
+7. 필드명 변경: camelCase → snake_case (Backend 스타일에 맞춤)
+
+**수정된 파일**:
+1. `table-order-customer-ui/src/api/authApi.ts` - Login API 엔드포인트 및 파라미터 수정
+2. `table-order-customer-ui/src/api/menuApi.ts` - Menu API 엔드포인트 및 파라미터 수정
+3. `table-order-customer-ui/src/api/orderApi.ts` - Order API 엔드포인트 수정, session_id 제거
+4. `table-order-customer-ui/src/pages/LoginPage.tsx` - Login 로직 수정, storeId 추가
+5. `table-order-customer-ui/src/stores/authStore.ts` - storeId 상태 추가
+6. `table-order-customer-ui/src/hooks/useMenus.ts` - storeId 파라미터 추가, categoryId 타입 변경
+7. `table-order-customer-ui/src/hooks/useOrders.ts` - sessionId 파라미터 제거
+8. `table-order-customer-ui/src/pages/OrdersPage.tsx` - Order 필드명 snake_case로 변경
+9. `table-order-customer-ui/src/pages/CartPage.tsx` - CreateOrder 요청 필드명 변경
+10. `table-order-customer-ui/src/pages/MenuPage.tsx` - categoryId 타입 변경, MenuCategory 필드명 변경
+11. `table-order-customer-ui/src/components/menu/CategoryTabs.tsx` - categoryId 타입 및 필드명 변경
+12. `table-order-customer-ui/src/components/menu/MenuItem.tsx` - Menu 필드명 snake_case로 변경
+13. `table-order-customer-ui/src/components/common/MenuDetailModal.tsx` - Menu 필드명 snake_case로 변경
+
+**주요 변경 사항**:
+- API 엔드포인트를 Backend 실제 구현에 맞춤
+- 필드명을 Backend의 snake_case 스타일에 맞춤
+- JWT 기반 인증으로 불필요한 파라미터 제거
+- storeId를 authStore에 추가하여 전역 관리
+- 타입 정의는 이미 올바르게 되어 있었음 (api.ts)
+
+**다음 단계**: 수정된 코드 테스트 및 검증
+
+---

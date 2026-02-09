@@ -5,8 +5,9 @@ import useAuthStore from '@/stores/authStore';
 import toast from 'react-hot-toast';
 
 const LoginPage = () => {
-  const [tableId, setTableId] = useState('');
+  const [tableNumber, setTableNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [storeId, setStoreId] = useState('STORE001'); // Default store ID
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const login = useAuthStore(state => state.login);
@@ -14,15 +15,15 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!tableId || !password) {
+    if (!tableNumber || !password) {
       toast.error('테이블 번호와 비밀번호를 입력해주세요');
       return;
     }
 
     setIsLoading(true);
     try {
-      const response = await authApi.login(tableId, password);
-      login(response.token, response.tableId, response.sessionId);
+      const response = await authApi.login(tableNumber, password, storeId);
+      login(response.access_token, response.table_id.toString(), response.session_id.toString(), response.store_id);
       toast.success('로그인 성공!');
       navigate('/menu');
     } catch (error) {
@@ -43,14 +44,14 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="space-y-4">
             <div>
-              <label htmlFor="tableId" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="tableNumber" className="block text-sm font-medium text-gray-700">
                 테이블 번호
               </label>
               <input
-                id="tableId"
+                id="tableNumber"
                 type="text"
-                value={tableId}
-                onChange={(e) => setTableId(e.target.value)}
+                value={tableNumber}
+                onChange={(e) => setTableNumber(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                 placeholder="예: T001"
               />

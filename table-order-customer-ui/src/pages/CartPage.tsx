@@ -1,14 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import useCartStore from '@/stores/cartStore';
-import useAuthStore from '@/stores/authStore';
 import { useCreateOrder } from '@/hooks/useOrders';
 import BottomNavigation from '@/components/common/BottomNavigation';
 import toast from 'react-hot-toast';
 
 const CartPage = () => {
   const { items, totalAmount, updateQuantity, removeItem, clearCart } = useCartStore();
-  const sessionId = useAuthStore(state => state.sessionId);
-  const tableId = useAuthStore(state => state.tableId);
   const createOrder = useCreateOrder();
   const navigate = useNavigate();
 
@@ -18,17 +15,10 @@ const CartPage = () => {
       return;
     }
 
-    if (!sessionId || !tableId) {
-      toast.error('세션 정보가 없습니다');
-      return;
-    }
-
     createOrder.mutate(
       {
-        sessionId,
-        tableId,
         items: items.map(item => ({
-          menuId: item.menuId,
+          menu_id: item.menuId,
           quantity: item.quantity,
         })),
       },

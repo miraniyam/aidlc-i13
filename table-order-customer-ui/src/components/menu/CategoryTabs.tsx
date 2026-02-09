@@ -2,8 +2,8 @@ import { MenuCategory } from '@/types/api';
 
 interface CategoryTabsProps {
   categories: MenuCategory[];
-  selectedCategoryId?: string;
-  onSelectCategory: (categoryId?: string) => void;
+  selectedCategoryId?: number;
+  onSelectCategory: (categoryId?: number) => void;
 }
 
 const CategoryTabs = ({ categories, selectedCategoryId, onSelectCategory }: CategoryTabsProps) => {
@@ -21,15 +21,15 @@ const CategoryTabs = ({ categories, selectedCategoryId, onSelectCategory }: Cate
       </button>
       {categories.map((category) => (
         <button
-          key={category.categoryId}
-          onClick={() => onSelectCategory(category.categoryId)}
+          key={category.id}
+          onClick={() => onSelectCategory(category.id)}
           className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
-            selectedCategoryId === category.categoryId
+            selectedCategoryId === category.id
               ? 'bg-blue-600 text-white'
               : 'bg-white text-gray-700 hover:bg-gray-100'
           }`}
         >
-          {category.categoryName}
+          {category.name}
         </button>
       ))}
     </div>
