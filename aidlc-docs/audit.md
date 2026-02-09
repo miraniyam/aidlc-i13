@@ -431,3 +431,148 @@ AI-DLC 워크플로우를 시작해봅시다."
 **Context**: CONSTRUCTION 단계 시작 가능
 
 ---
+
+## CONSTRUCTION - Unit 3 Functional Design Planning Started
+**Timestamp**: 2026-02-09T15:19:56+09:00
+**User Input**: "웅"
+**AI Response**: Unit 3 (Admin Frontend) Functional Design Planning 시작
+- Unit 3 선택 이유: 팀 분담 (Unit 1 미완료 상태에서 독립 개발)
+- Functional Design Plan 생성 완료
+- 15개 질문 생성:
+  1. UI Layout & Navigation Structure
+  2. Real-time Dashboard Update Strategy
+  3. SSE Connection Management
+  4. Table Card Display Logic
+  5. Order Status Transition Validation (Frontend)
+  6. Menu Image Upload Handling
+  7. Error Handling & User Feedback
+  8. Order History Date Range
+  9. Menu Management - Category Handling
+  10. Dashboard Refresh Strategy
+  11. Confirmation Dialogs
+  12. Authentication Token Management
+  13. Menu List Display Mode
+  14. SSE Event Notification
+  15. Order Detail Modal - Data Scope
+- 6단계 Generation Plan:
+  1. Domain Model Definition
+  2. Business Logic Modeling
+  3. Business Rules Definition
+  4. Data Flow Definition
+  5. Error Handling Strategy
+  6. UI State Management Strategy
+- unit3-admin-ui-functional-design-plan.md 생성 완료
+**Context**: 사용자 답변 대기 중
+
+---
+
+## CONSTRUCTION - Unit 3 Functional Design Answers Complete
+**Timestamp**: 2026-02-09T15:47:08+09:00
+**User Input**: "바꿨어 어때"
+**AI Response**: 답변 검토 및 변경 완료
+- 최종 답변:
+  - Q1: Multi-Page with Sidebar (B)
+  - Q2: Hybrid (C) - SSE + 주기적 동기화
+  - Q3: Auto-reconnect with exponential backoff (A)
+  - Q4: Standard (B) - 최신 3개 주문 (변경)
+  - Q5: Hybrid (C)
+  - Q6: Preview + Upload (B) (변경)
+  - Q7: Combination (D)
+  - Q8: Last 7 Days (B)
+  - Q9: Separate Category Management (C) (변경)
+  - Q10: Periodic Refresh (B) (변경)
+  - Q11: Custom Modal (B)
+  - Q12: Auto Logout (A)
+  - Q13: List with Thumbnails (C)
+  - Q14: Visual + Sound (B)
+  - Q15: Table Session Orders (C)
+- 모든 답변이 프로젝트 요구사항과 일치
+- 데이터 정합성, 성능, UX 최적화
+**Context**: Functional Design 문서 생성 준비 완료
+
+---
+
+## CONSTRUCTION - Unit 3 Functional Design Generation Started
+**Timestamp**: 2026-02-09T15:52:29+09:00
+**User Input**: "그래 해보자"
+**AI Response**: Functional Design 문서 생성 시작
+- Unit 1 미완료 상태에서 진행 가능 확인
+- Functional Design은 기술 독립적
+- API 스펙은 Unit of Work에 이미 정의됨
+**Context**: Phase 1 (Domain Model Definition) 진행 중
+
+---
+
+## CONSTRUCTION - Unit 3 Functional Design Complete
+**Timestamp**: 2026-02-09T15:58:00+09:00
+**User Input**: N/A
+**AI Response**: Functional Design 문서 생성 완료
+- 생성된 산출물:
+  - domain-entities.md (27개 타입)
+  - business-logic-model.md (7개 컴포넌트)
+  - business-rules.md (19개 규칙)
+- 주요 설계 결정:
+  - Multi-page with sidebar
+  - Hybrid update (SSE + 5분 동기화)
+  - Standard table card (최신 3개)
+  - Preview + Upload
+  - Separate category management
+**Context**: 사용자 검토 대기 중
+
+---
+
+## CONSTRUCTION - Unit 3 Functional Design Review & Improvements
+**Timestamp**: 2026-02-09T16:01:16+09:00
+**User Input**: "개선사항 반영해줘"
+**AI Response**: 설계 개선사항 반영 완료
+- 개선 내용:
+  1. Store 정보 활용 (LoginResponse, DashboardData에 추가)
+  2. Order.version 추가 (낙관적 잠금, 동시성 제어)
+  3. Order.is_archived 추가 (세션 종료 후 데이터 보존)
+  4. OrderItem.menu_id nullable (메뉴 삭제 후 과거 주문 조회)
+  5. OrderHistory 구조 명확화 (order_ids 참조)
+  6. UpdateOrderStatusRequest에 current_version 추가
+  7. CompleteSessionRequest에 force 옵션 추가
+  8. 세션 종료 시 미전달 주문 경고 로직 추가
+  9. 메뉴/카테고리 삭제 시 Frontend 사전 체크 추가
+  10. 동시성 제어 규칙 추가 (Optimistic Locking)
+  11. 데이터 아카이빙 규칙 추가
+- 업데이트된 문서:
+  - domain-entities.md (6개 엔티티 수정)
+  - business-logic-model.md (4개 로직 추가/수정)
+  - business-rules.md (2개 규칙 추가, 총 21개)
+**Context**: 최종 승인 대기 중
+
+---
+
+## CONSTRUCTION - Unit 3 Functional Design Approved
+**Timestamp**: 2026-02-09T16:07:39+09:00
+**User Input**: "승인"
+**AI Response**: Functional Design 승인 완료
+- 최종 산출물:
+  - domain-entities.md (27개 타입, 개선 반영)
+  - business-logic-model.md (7개 컴포넌트, 개선 반영)
+  - business-rules.md (21개 규칙, 개선 반영)
+- 다음 단계: NFR Requirements
+**Context**: NFR Requirements 단계 진행 가능
+
+---
+
+## CONSTRUCTION - Unit 3 NFR Requirements Planning Started
+**Timestamp**: 2026-02-09T16:08:23+09:00
+**User Input**: "가보자고"
+**AI Response**: NFR Requirements Planning 시작
+- NFR Requirements Plan 생성 완료
+- 22개 질문 생성:
+  - Performance (Q1-Q4): 로딩 시간, SSE 지연, API 응답, 이미지 업로드
+  - Scalability (Q5-Q7): 동시 사용자, 테이블/주문 규모, SSE 확장
+  - Availability (Q8-Q9): 가용성, 오프라인 지원
+  - Security (Q10-Q12): HTTPS, XSS/CSRF, 민감 데이터
+  - Reliability (Q13-Q14): 에러 복구, 모니터링
+  - Usability (Q15-Q17): 브라우저, 반응형, 접근성
+  - Tech Stack (Q18-Q22): UI 라이브러리, 상태 관리, 폼, 날짜, 테스트
+- 7단계 Assessment Plan
+- unit3-admin-ui-nfr-requirements-plan.md 생성 완료
+**Context**: 사용자 답변 대기 중
+
+---
